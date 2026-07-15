@@ -1,0 +1,9 @@
+name = "doosdossier-scan"
+compatibility_date = "2026-07-01"
+pages_build_output_dir = "public"
+
+# After `wrangler d1 create doosdossier-leads`, fill in the database_id below.
+[[d1_databases]]
+binding = "DB"
+database_name = "doosdossier-leads"
+database_id = "FILL-IN-AFTER-D1-CREATE"

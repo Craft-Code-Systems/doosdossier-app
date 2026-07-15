@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Is jouw webshop PPWR-proof? — DoosDossier</title>
+<meta name="description" content="Gratis scan: check in 2 minuten of jouw webshop klaar is voor de EU-verpakkingsregels (PPWR) die per 12 augustus 2026 gelden.">
+<!--
+  CONTENT-VERIFICATIE VÓÓR LIVEGANG (zie Spec O-01/O-02, O-16):
+  [ ] Koepel-namen + registratieplicht per land actueel (Verpact/LUCID/Fost Plus/CITEO)
+  [ ] AR-eis per land geverifieerd (tekst is nu bewust hedged)
+  [ ] Geen drempelbedragen genoemd — zo houden tot O-02 beantwoord is
+  [ ] Merk/handelsnaam DoosDossier vastgelegd (O-16)
+  Geen trackers, geen cookies, geen externe requests. Fonts = systeem.
+-->
+<style>
+:root{
+  --kraft:#E7DBC0; --kraft2:#DCCBA4; --paper:#F5EFDF;
+  --ink:#2A241A; --ink-soft:#6E6149;
+  --line:#C6B389;
+  --red:#B03327; --amber:#A16A0F; --green:#2F642B;
+  --focus:#1F4E8C;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--kraft);
+  background-image:linear-gradient(180deg,rgba(255,255,255,.25),rgba(0,0,0,0) 220px),
+    repeating-linear-gradient(115deg,rgba(120,95,55,.045) 0 2px,transparent 2px 7px);
+  color:var(--ink);
+  font:400 17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  min-height:100svh;
+}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.wrap{max-width:640px;margin:0 auto;padding:0 20px 72px}
+
+/* topstrip */
+.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0 14px;border-bottom:2px solid var(--ink)}
+.mark{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:700;letter-spacing:.28em;font-size:13px}
+.mark span{color:var(--ink-soft)}
+.chip{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;border:1.5px solid var(--ink);padding:4px 9px;border-radius:2px;background:var(--paper);white-space:nowrap}
+.chip b{color:var(--red)}
+
+/* hero */
+.hero{padding:44px 0 8px}
+.eyebrow{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;letter-spacing:.22em;color:var(--ink-soft);text-transform:uppercase;margin-bottom:14px}
+h1{font-weight:800;font-size:clamp(34px,8vw,52px);line-height:1.02;letter-spacing:-.015em;text-transform:uppercase}
+h1 em{font-style:normal;box-shadow:inset 0 -0.34em 0 rgba(176,51,39,.28)}
+.lede{margin:18px 0 26px;font-size:18px;max-width:34em;color:#3d3527}
+.btn{display:inline-block;appearance:none;border:2px solid var(--ink);background:var(--ink);color:var(--kraft);
+  font:700 16px/1 system-ui,sans-serif;letter-spacing:.04em;padding:16px 26px;border-radius:3px;cursor:pointer;text-transform:uppercase}
+.btn:hover{background:#3a3222}
+.btn.ghost{background:transparent;color:var(--ink)}
+.tiny{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;color:var(--ink-soft);margin-top:12px}
+
+/* wizard card = dossierblad */
+.sheet{background:var(--paper);border:1.5px solid var(--line);border-top:2px dashed var(--line);
+  box-shadow:0 2px 0 rgba(90,70,35,.18),0 14px 30px -18px rgba(60,45,20,.45);
+  border-radius:2px;padding:26px 22px 24px;margin-top:30px;position:relative}
+.sheet::before{content:"";position:absolute;top:-9px;left:26px;width:88px;height:18px;
+  background:rgba(214,199,160,.85);border:1px solid rgba(120,95,55,.35);transform:rotate(-2deg)} /* plakband */
+.prog{display:flex;justify-content:space-between;align-items:baseline;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;letter-spacing:.14em;color:var(--ink-soft);text-transform:uppercase}
+.bar{height:3px;background:#E2D6B8;margin:10px 0 24px;border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ink);width:0;transition:width .25s ease}
+.q{font-weight:800;font-size:23px;line-height:1.2;margin-bottom:6px}
+.hint{color:var(--ink-soft);font-size:15px;margin-bottom:18px}
+.opts{display:grid;gap:10px;margin-bottom:20px}
+.opt{display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);background:#FBF7EC;border-radius:3px;
+  padding:14px 14px;font-size:16.5px;cursor:pointer;text-align:left;width:100%;color:var(--ink)}
+.opt:hover{border-color:var(--ink)}
+.opt .box{flex:0 0 auto;width:20px;height:20px;border:2px solid var(--ink);border-radius:2px;position:relative;background:#fff0}
+.opt.sel{background:var(--ink);color:var(--kraft);border-color:var(--ink)}
+.opt.sel .box{border-color:var(--kraft)}
+.opt.sel .box::after{content:"×";position:absolute;inset:-6px 0 0 2px;font:700 20px/1 ui-monospace,monospace;color:var(--kraft)}
+.nav{display:flex;gap:10px;justify-content:space-between}
+.err{color:var(--red);font-size:14px;margin:-8px 0 14px;display:none}
+
+/* resultaat: gestempelde landkaarten */
+.res-head{margin:34px 0 6px;font-weight:800;font-size:26px;text-transform:uppercase;letter-spacing:-.01em}
+.res-sub{color:var(--ink-soft);margin-bottom:20px}
+.card{background:var(--paper);border:1.5px solid var(--line);border-radius:2px;margin:0 0 16px;position:relative;
+  box-shadow:0 2px 0 rgba(90,70,35,.15)}
+.card-top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px dashed var(--line);padding:12px 16px}
+.cc{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:700;font-size:15px;letter-spacing:.1em}
+.cc small{color:var(--ink-soft);font-weight:400;letter-spacing:.02em}
+.stamp{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:700;font-size:12.5px;letter-spacing:.16em;
+  border:2.5px double currentColor;border-radius:2px;padding:5px 10px;transform:rotate(-3.5deg);opacity:.92;white-space:nowrap}
+.s-red{color:var(--red)} .s-amber{color:var(--amber)} .s-green{color:var(--green)}
+.acts{list-style:none;padding:14px 16px}
+.acts li{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;line-height:1.5;padding-left:20px;position:relative;margin-bottom:9px}
+.acts li::before{content:"→";position:absolute;left:0;color:var(--ink-soft)}
+.acts li.ok::before{content:"✓";color:var(--green)}
+@media (prefers-reduced-motion:no-preference){
+  .card{animation:drop .35s ease both}
+  .card:nth-child(2){animation-delay:.08s}.card:nth-child(3){animation-delay:.16s}.card:nth-child(4){animation-delay:.24s}
+  @keyframes drop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+}
+
+/* email */
+.gate{background:var(--ink);color:var(--kraft);border-radius:3px;padding:24px 20px;margin-top:26px}
+.gate h2{font-size:21px;font-weight:800;text-transform:uppercase;letter-spacing:.01em;margin-bottom:6px}
+.gate p{color:#CBBFA0;font-size:15px;margin-bottom:16px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row input{flex:1 1 220px;font:16px/1 system-ui,sans-serif;padding:14px;border:2px solid var(--kraft);background:var(--paper);color:var(--ink);border-radius:3px}
+.row .btn{border-color:var(--kraft);background:var(--kraft);color:var(--ink)}
+.gate .tiny{color:#A99C7E}
+.done{display:none;font-family:ui-monospace,monospace;font-size:14px;border:2px double var(--kraft);padding:12px 14px;border-radius:2px}
+
+footer{margin-top:46px;border-top:2px solid var(--ink);padding-top:16px;font-size:13px;color:var(--ink-soft)}
+footer .mono{font-size:11.5px;letter-spacing:.06em;margin-top:10px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="mark">DOOS<span>DOSSIER</span></div>
+    <div class="chip mono" id="deadline">— dagen tot 12 aug 2026</div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <p class="eyebrow">Gratis scan · 6 vragen · 2 minuten</p>
+    <h1>Is jouw webshop <em>PPWR-proof?</em></h1>
+    <p class="lede">Per 12 augustus 2026 gelden nieuwe EU-verpakkingsregels. Verkoop je (ook) naar Duitsland, België of Frankrijk, dan heb je daar als webshop eigen verplichtingen. Check waar je staat — per land.</p>
+    <button class="btn" id="start">Start de scan</button>
+    <p class="tiny">Geen account nodig · geen trackers · resultaat direct zichtbaar</p>
+  </section>
+
+  <!-- WIZARD -->
+  <section class="sheet hide" id="wiz" aria-live="polite">
+    <div class="prog"><span id="stepLbl">Vraag 1</span><span id="stepCnt">1 / 6</span></div>
+    <div class="bar"><i id="barFill"></i></div>
+    <h2 class="q" id="qTitle"></h2>
+    <p class="hint" id="qHint"></p>
+    <div class="opts" id="opts"></div>
+    <p class="err" id="err">Kies eerst een antwoord.</p>
+    <div class="nav">
+      <button class="btn ghost" id="back">Terug</button>
+      <button class="btn" id="next">Volgende</button>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="hide" id="result">
+    <h2 class="res-head" id="verdict"></h2>
+    <p class="res-sub" id="verdictSub"></p>
+    <div id="cards"></div>
+
+    <div class="gate">
+      <h2>Mail mij dit dossier</h2>
+      <p>Ontvang je resultaat plus de volledige PPWR-actielijst per land. We melden je ook wanneer DoosDossier live gaat.</p>
+      <form class="row" id="leadForm" novalidate>
+        <label class="hide" for="email">E-mailadres</label>
+        <input type="email" id="email" name="email" placeholder="jij@webshop.nl" autocomplete="email" required>
+        <button class="btn" type="submit" id="sendBtn">Verstuur</button>
+      </form>
+      <p class="err" id="mailErr" style="color:#E8A79C"></p>
+      <p class="done" id="done">✓ Verstuurd — je dossier staat in je inbox (check eventueel je spam).</p>
+      <p class="tiny">Alleen hiervoor gebruikt. Geen nieuwsbrief-spam, uitschrijven kan altijd.</p>
+    </div>
+
+    <p class="tiny" style="margin-top:18px"><button class="btn ghost" id="redo" style="padding:10px 16px;font-size:13px">Scan opnieuw</button></p>
+  </section>
+
+  <footer>
+    <p><strong>Let op:</strong> deze scan is een indicatie op basis van je eigen antwoorden — geen juridisch advies. Controleer je verplichtingen altijd bij de officiële instanties per land.</p>
+    <p class="mono">DOOSDOSSIER · verpakkingsregister &amp; EPR-aangiftes · binnenkort open source (AGPL-3.0) · geen cookies, geen trackers</p>
+  </footer>
+</div>
+
+<script>
+"use strict";
+/* ---------- data ---------- */
+const SCHEMES = {
+  NL:{name:"Nederland", org:"Verpact"},
+  DE:{name:"Duitsland", org:"LUCID (Zentrale Stelle)"},
+  BE:{name:"België",    org:"Fost Plus"},
+  FR:{name:"Frankrijk", org:"CITEO"}
+};
+const state = { countries:[], reg:{}, ar:null, sku:null, kg:null, doc:null };
+
+/* deadline-chip */
+(function(){
+  const d = Math.ceil((new Date("2026-08-12T00:00:00+02:00") - Date.now())/864e5);
+  document.getElementById("deadline").innerHTML =
+    d > 0 ? `nog <b>${d}</b> ${d===1?"dag":"dagen"} tot 12 aug 2026` : `PPWR is <b>van toepassing</b>`;
+})();
+
+/* ---------- wizard ---------- */
+function steps(){
+  const s = [{
+    id:"countries", multi:true,
+    title:"In welke landen verkoop je?",
+    hint:"Ook via marketplaces zoals Bol of Amazon telt mee.",
+    opts:[["NL","Nederland"],["DE","Duitsland"],["BE","België"],["FR","Frankrijk"],["EU","Andere EU-landen"]],
+    get:()=>state.countries, set:v=>state.countries=v
+  }];
+  for(const c of state.countries.filter(c=>SCHEMES[c])){
+    s.push({
+      id:"reg-"+c,
+      title:`Ben je in ${SCHEMES[c].name} geregistreerd bij ${SCHEMES[c].org}?`,
+      hint:"De producentenregistratie voor verpakkingen in dat land.",
+      opts:[["ja","Ja"],["nee","Nee"],["weetniet","Weet ik niet"]],
+      get:()=>state.reg[c], set:v=>state.reg[c]=v
+    });
+  }
+  if(state.countries.some(c=>["DE","BE","FR","EU"].includes(c))){
+    s.push({
+      id:"ar",
+      title:"Heb je voor landen zonder eigen vestiging een gemachtigd vertegenwoordiger?",
+      hint:"Sommige landen vragen een lokale ‘authorised representative’ als je er geen vestiging hebt.",
+      opts:[["ja","Ja, geregeld"],["nee","Nee"],["nvt","Ik heb overal een vestiging"],["weetniet","Weet ik niet"]],
+      get:()=>state.ar, set:v=>state.ar=v
+    });
+  }
+  s.push(
+    {id:"sku", title:"Weet je per product welk verpakkingsmateriaal en gewicht je gebruikt?",
+     hint:"Doos, vulling, tape en label — per SKU.",
+     opts:[["ja","Ja, vastgelegd"],["deels","Deels"],["nee","Nee"]],
+     get:()=>state.sku, set:v=>state.sku=v},
+    {id:"kg", title:"Weet je hoeveel kg verpakking je per land per jaar op de markt brengt?",
+     hint:"Dit is de kern van elke EPR-aangifte.",
+     opts:[["ja","Ja"],["ongeveer","Ongeveer"],["nee","Nee"]],
+     get:()=>state.kg, set:v=>state.kg=v},
+    {id:"doc", title:"Heb je documentatie van je verpakkingen?",
+     hint:"Denk aan conformiteitsverklaringen of een technisch dossier per verpakkingstype.",
+     opts:[["ja","Ja"],["nee","Nee"],["weetniet","Weet ik niet"]],
+     get:()=>state.doc, set:v=>state.doc=v}
+  );
+  return s;
+}
+
+let i = 0;
+const $ = id => document.getElementById(id);
+
+function render(){
+  const S = steps(), st = S[i];
+  $("stepLbl").textContent = "Vraag " + (i+1);
+  $("stepCnt").textContent = (i+1) + " / " + S.length;
+  $("barFill").style.width = ((i)/(S.length)*100) + "%";
+  $("qTitle").textContent = st.title;
+  $("qHint").textContent = st.hint || "";
+  $("err").style.display = "none";
+  $("back").style.visibility = i ? "visible" : "hidden";
+  $("next").textContent = (i === S.length-1) ? "Bekijk mijn dossier" : "Volgende";
+  const wrap = $("opts"); wrap.innerHTML = "";
+  const cur = st.get();
+  for(const [val,label] of st.opts){
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "opt"; b.dataset.val = val;
+    b.innerHTML = `<span class="box" aria-hidden="true"></span><span>${label}</span>`;
+    const active = st.multi ? (cur||[]).includes(val) : cur === val;
+    if(active) b.classList.add("sel");
+    b.onclick = () => {
+      if(st.multi){
+        const arr = st.get() || [];
+        st.set(arr.includes(val) ? arr.filter(x=>x!==val) : [...arr,val]);
+        b.classList.toggle("sel");
+      } else {
+        st.set(val);
+        wrap.querySelectorAll(".opt").forEach(o=>o.classList.remove("sel"));
+        b.classList.add("sel");
+        setTimeout(nextStep, 160);
+      }
+    };
+    wrap.appendChild(b);
+  }
+}
+function nextStep(){
+  const S = steps(), st = S[i], v = st.get();
+  if(st.multi ? !(v && v.length) : !v){ $("err").style.display = "block"; return; }
+  if(i === S.length-1) return showResult();
+  i++; render(); $("wiz").scrollIntoView({behavior:"smooth",block:"start"});
+}
+$("start").onclick = () => { $("hero").classList.add("hide"); $("wiz").classList.remove("hide"); render(); };
+$("next").onclick  = nextStep;
+$("back").onclick  = () => { if(i){ i--; render(); } };
+$("redo").onclick  = () => location.reload();
+
+/* ---------- scoring ---------- */
+function evaluate(){
+  const out = {};
+  const dataGap  = state.sku !== "ja" || state.kg !== "ja";
+  const dataMiss = state.sku === "nee" || state.kg === "nee";
+  for(const c of state.countries.filter(c=>SCHEMES[c])){
+    const acts = [];
+    let status = "green";
+    const needsAr = c !== "NL" && state.ar && ["nee","weetniet"].includes(state.ar);
+    if(state.reg[c] !== "ja"){
+      status = "red";
+      acts.push(`Registreer je bij ${SCHEMES[c].org} — zonder registratie mag je daar mogelijk geen verpakking op de markt brengen.`);
+      if(c === "DE") acts.push("Duitsland handhaaft streng; marketplaces controleren op een geldig LUCID-nummer.");
+    }
+    if(needsAr) acts.push("Controleer of dit land een gemachtigd vertegenwoordiger vereist en regel die zo nodig.");
+    if(state.sku !== "ja") acts.push("Leg per SKU materiaal en gewicht van de verpakking vast — de basis van elke aangifte.");
+    if(state.kg  !== "ja") acts.push("Bereken je kg per materiaal per land — dat is wat je straks aangeeft.");
+    if(state.doc !== "ja") acts.push("Stel documentatie per verpakkingstype op en bewaar die.");
+    if(status !== "red" && (dataGap || dataMiss || needsAr || state.doc !== "ja")) status = "amber";
+    if(!acts.length) acts.push("Op orde op de gecheckte punten. Volgende stap: je eerstvolgende aangifteperiode voorbereiden.");
+    out[c] = {status, acts};
+  }
+  return out;
+}
+
+function showResult(){
+  const res = evaluate();
+  $("wiz").classList.add("hide");
+  const cards = $("cards"); cards.innerHTML = "";
+  const label = {red:"ACTIE VEREIST", amber:"RISICO", green:"OP ORDE"};
+  let greens = 0, total = 0;
+  for(const [c,r] of Object.entries(res)){
+    total++; if(r.status === "green") greens++;
+    const el = document.createElement("article");
+    el.className = "card";
+    el.innerHTML =
+      `<div class="card-top"><span class="cc">${c} <small>· ${SCHEMES[c].name} — ${SCHEMES[c].org}</small></span>` +
+      `<span class="stamp s-${r.status}">${label[r.status]}</span></div>` +
+      `<ul class="acts">` + r.acts.map(a=>`<li class="${r.status==='green'?'ok':''}">${a}</li>`).join("") + `</ul>`;
+    cards.appendChild(el);
+  }
+  if(state.countries.includes("EU")){
+    const el = document.createElement("article");
+    el.className = "card";
+    el.innerHTML = `<div class="card-top"><span class="cc">EU <small>· overige landen</small></span>`+
+      `<span class="stamp s-amber">CHECK PER LAND</span></div>`+
+      `<ul class="acts"><li>Elk EU-land heeft een eigen registratie en aangifte — breng per land in kaart wat daar geldt.</li></ul>`;
+    cards.appendChild(el);
+  }
+  $("verdict").textContent = greens === total && total > 0 ? "Dossier op orde" : `${greens} van ${total} landen op orde`;
+  $("verdictSub").textContent = greens === total && total > 0
+    ? "Sterk. Hou je gegevens actueel richting je volgende aangifte."
+    : "Onderstaande punten wil je vóór 12 augustus 2026 geregeld hebben.";
+  $("result").classList.remove("hide");
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+/* ---------- lead capture ---------- */
+$("leadForm").addEventListener("submit", async e=>{
+  e.preventDefault();
+  const email = $("email").value.trim();
+  const err = $("mailErr");
+  err.style.display = "none";
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    err.textContent = "Vul een geldig e-mailadres in."; err.style.display = "block"; return;
+  }
+  $("sendBtn").disabled = true; $("sendBtn").textContent = "Versturen…";
+  try{
+    const r = await fetch("/api/lead", {
+      method:"POST", headers:{"content-type":"application/json"},
+      body: JSON.stringify({email, answers: state, statuses: Object.fromEntries(Object.entries(evaluate()).map(([c,v])=>[c,v.status]))})
+    });
+    if(!r.ok) throw 0;
+    $("leadForm").classList.add("hide"); $("done").style.display = "block";
+  }catch(_){
+    err.textContent = "Versturen lukte niet. Probeer het zo nog eens."; err.style.display = "block";
+    $("sendBtn").disabled = false; $("sendBtn").textContent = "Verstuur";
+  }
+});
+</script>
+</body>
+</html>
