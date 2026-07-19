@@ -1,0 +1,36 @@
+# Worksheet — LUCID / VerpackG (DE), reporting year 2026
+
+Note: DE = strictest enforcement; marketplaces check the LUCID number.
+Fill in from the official Zentrale Stelle specs (O-01); promote to
+`golden/lucid/2026/`.
+
+## Source & version
+- Specification (URL or document): …
+- Document version + date: …
+- Consulted on: …
+
+## Registration & Systembeteiligung
+- LUCID registration (registration number): …
+- Dual system / Systembeteiligung — how does our export relate to this: …
+- Datenmeldung: which notifications, to whom (LUCID AND dual system?): …
+- Vollständigkeitserklärung: thresholds + whether this affects us: …
+
+## Thresholds & exemptions
+- Lower limit (DE presumably has none — verify): …
+
+## Material categories → mapping
+| VerpackG category | Our taxonomy code | Unit | Rounding |
+|---|---|---|---|
+| … | … | … | … |
+
+## Fields & format
+- Required fields per notification: …
+- Format/channel: …
+
+## Golden-file cases
+- [ ] case_001_basis — 3 materials
+- [ ] case_002_jahresmeldung_vs_planmeldung — if applicable
+- [ ] case_003_rounding
+
+## Open points
+- AR requirement for NL sellers without DE establishment (O-06): …

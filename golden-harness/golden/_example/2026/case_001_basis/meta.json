@@ -1,0 +1,8 @@
+{
+  "description": "Voorbeeldcase die de harness groen bewijst. Verwijderen zodra verpact/lucid een eerste geverifieerde case heeft.",
+  "source": "n.v.t. — synthetisch voorbeeld",
+  "source_version": "n.v.t.",
+  "verified_by": "harness-bootstrap",
+  "verified_date": "2026-07-13",
+  "status": "verified"
+}

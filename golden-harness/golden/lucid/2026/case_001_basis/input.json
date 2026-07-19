@@ -1,0 +1,12 @@
+{
+  "scheme": "lucid",
+  "country": "DE",
+  "period": "2026",
+  "ruleset_version": "lucid-2026.1",
+  "tenant": {"name": "Demo Webshop BV", "lucid_registernummer": "TODO"},
+  "totals": [
+    {"material": "papier_karton", "grams": 1250000},
+    {"material": "kunststof_flexibel", "grams": 84000},
+    {"material": "kunststof_rigide", "grams": 12500}
+  ]
+}
