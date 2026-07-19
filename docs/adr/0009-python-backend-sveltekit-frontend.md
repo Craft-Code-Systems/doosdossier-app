@@ -1,45 +1,44 @@
-# Decision 0009: FastAPI-backend (Python), SvelteKit uitsluitend frontend
+# Decision 0009: FastAPI backend (Python), SvelteKit frontend only
 
 **Status:**      Accepted
 **Date:**        2026-07-13
-**Supersedes:**  [Decision 0001](./0001-modulaire-monoliet-in-ccs-monorepo.md)
+**Supersedes:**  [Decision 0001](./0001-modular-monolith-in-ccs-monorepo.md)
 
 ## Context
 
-Decision 0001 koos TypeScript end-to-end (SvelteKit full-stack) en
-verwierp een aparte FastAPI-backend. Heroverweging: WeasyPrint (PDF)
-is Python-native, Pydantic past exact op koepel-validatie, hypothesis
-geeft property-based tests op de engine, en PakketRadar-services
-gebruiken al het FastAPI-idioom — één backend-taal over de
-CCS-producten.
+Decision 0001 chose TypeScript end-to-end (SvelteKit full-stack) and
+rejected a separate FastAPI backend. Reconsideration: WeasyPrint (PDF) is
+Python-native, Pydantic fits canopy validation exactly, hypothesis gives
+property-based tests on the engine, and PakketRadar services already use
+the FastAPI idiom — one backend language across CCS products.
 
 ## Decision
 
-Backend wordt FastAPI (`services/doosdossier-api`) met engine,
-SchemeAdapters en connectoren als Python-packages; SvelteKit
-(`apps/doosdossier-web`) is puur frontend; de modulith- en
-monorepo-principes uit 0001 blijven onverkort gelden.
+Backend becomes FastAPI (`services/doosdossier-api`) with engine,
+SchemeAdapters, and connectors as Python packages; SvelteKit
+(`apps/doosdossier-web`) is purely frontend; the modulith and monorepo
+principles from 0001 remain fully intact.
 
 ## Considerations
 
-**Pro:** sterkste tooling voor precies de kritieke lagen (validatie,
-PDF, property-based tests); taal-consistentie met
-PakketRadar-services; O-13 (PDF-lib) lost hiermee vanzelf op.
-**Con:** twee talen in één product — gemitigeerd door OpenAPI →
-gegenereerde TS-types als énige contractbron; frontend mag nooit
-domeinlogica dupliceren.
+**Pro:** strongest tooling for exactly the critical layers (validation,
+PDF, property-based tests); language consistency with PakketRadar services;
+O-13 (PDF-lib) resolves itself.
+**Con:** two languages in one product — mitigated by OpenAPI → generated
+TS types as the single contract source; frontend must never duplicate
+domain logic.
 
-Verworpen: TS end-to-end handhaven (verliest WeasyPrint/Pydantic/
-hypothesis); Node-PDF via Puppeteer (zware runtime, fragiele
-rendering voor aangifte-documenten).
+Rejected: keep TS end-to-end (loses WeasyPrint/Pydantic/hypothesis);
+Node-PDF via Puppeteer (heavy runtime, fragile rendering for tax
+documents).
 
 ## Consequences
 
 - Packages: `dd_core`, `dd_schemes`, `dd_connectors` (Python);
-  UI-packages blijven TypeScript
-- CI: pytest + golden files als poortwachter; OpenAPI-typegeneratie
-  in de buildpijplijn
-- In-process modulith binnen de API; netwerk alleen browser ↔ API
+  UI packages remain TypeScript
+- CI: pytest + golden files as gate; OpenAPI type generation in the build
+  pipeline
+- In-process modulith inside the API; network only browser ↔ API
 
 ---
 

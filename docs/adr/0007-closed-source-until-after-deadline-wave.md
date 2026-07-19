@@ -1,6 +1,6 @@
 # Decision 0007: Closed source until after the deadline wave
 
-**Status:**      Superseded by [Decision 0008](./0008-agpl-open-source-vanaf-launch.md)
+**Status:**      Superseded by [Decision 0008](./0008-agpl-open-source-from-launch.md)
 **Date:**        2026-07-11
 
 ## Context
