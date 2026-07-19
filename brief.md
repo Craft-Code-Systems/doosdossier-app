@@ -137,8 +137,19 @@ follows.*
 
 ## Getting started
 
-Repo will be bootstrapped from the CCS project template within the
-monorepo. Intended:
+**Today (this repo):** two self-contained building blocks run standalone:
+
+```
+# Free PPWR scan (Cloudflare Pages + D1) — see scan/README.md
+cd scan && wrangler pages dev
+
+# Golden-file harness (PRO export gatekeeper) — see golden-harness/README.md
+pip install pytest && pytest golden-harness/tests -q
+```
+
+**Intended (after bootstrap):** the app moves into the CCS monorepo,
+where `golden-harness/` becomes `services/doosdossier-api/` and a
+SvelteKit `doosdossier-web` is added. Target developer setup:
 
 ```
 git clone git@github.com:Craft-Code-Systems/<monorepo>.git
