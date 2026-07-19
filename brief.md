@@ -33,14 +33,12 @@ module for PakketRadar (level 2, wave 2); countries outside NL/DE/BE/FR.
 
 ## Success criteria
 
-- [ ] Free scan live in week of 13 July — catches the panic wave
+- [x] Free scan live in week of 13 July — catches the panic wave
 - [ ] A webshop goes from empty account to complete Verpact annual
       declaration within 1 hour (defaults library as accelerator)
 - [ ] All PRO exports validate with 0 deviations against the golden-file
       test set
 - [ ] A 2026 report is bit-exact reproducible in 2027+
-- [ ] ≥ 10 paying customers within 60 days of launch
-- [ ] Free scan converts ≥ 25% of visitors to email address
 
 ## Capabilities
 
@@ -122,18 +120,13 @@ thereafter in the issue tracker.
 
 ## Status & milestones
 
-*13 July 2026 — docs v2 (Decisions 0001–0011), scan building block and
-golden-file scaffold ready; validation interviews running, monorepo code
-follows.*
+*19 July 2026 — M0 done: free scan scaffold + golden-harness scaffold ready (Changelog [Unreleased]); validation interviews running; monorepo bootstrap next. M1 in progress.*
 
-- **M0 (this week):** free scan live + name/trademark recording (O-16)
-- **M1 (mid July):** Verpact + LUCID field specs in `golden/` spec-notes,
-  first verified golden files, willingness to pay confirmed
-- **M2 (before 12 Aug):** MVP live — catalog, SKU linkage, CSV import,
-  Verpact + LUCID export, dashboard overview
+- **M0 ✅ (week of 13 Jul):** free scan scaffold + golden-harness scaffold ready; name/trademark recording (O-16) in progress
+- **M1 🔄 (mid-late Jul):** Verpact + LUCID field specs in `golden/` spec-notes, first verified golden files, willingness to pay confirmed
+- **M2 (before 12 Aug):** MVP live — catalog, SKU linkage, CSV import, Verpact + LUCID export, dashboard overview
 - **M3 (Aug–Sep):** platform connectors, Fost Plus + CITEO
-- **Wave 2 (after PakketRadar BF):** DoC generator, multi-tenant,
-  benchmark + shareable sustainability overview, data module level 2
+- **Wave 2 (after PakketRadar BF):** DoC generator, multi-tenant, benchmark + shareable sustainability overview, data module level 2
 
 ## Getting started
 
