@@ -57,7 +57,10 @@ The script ([`scripts/setup-github-project.sh`](../scripts/setup-github-project.
 4. Sets each card's **Sprint** from its milestone and **Priority** from its
    `priority:*` label.
 
-It is idempotent — safe to re-run after new issues are added.
+Every GitHub call is retried with backoff on transient network errors, and the
+whole script is idempotent — safe to re-run after a dropped connection or when
+new issues are added. Any issues that still fail after retries are listed at the
+end so you know a re-run is needed.
 
 ### After running
 
@@ -65,5 +68,9 @@ One-click, in the board UI:
 
 - Group a board/table view by **Sprint** (or the built-in **Milestone** field)
   to get sprint columns.
-- Add a date-based **Iteration** field if you want burndown charts —
-  iteration fields can only be created in the board UI, not via the API/CLI.
+- For GitHub's **Current / Planned** sprint view and burndown, add a date-based
+  **Iteration** field — this is the one thing that can only be created in the
+  board UI, not via the API/CLI: **⋯ → Settings → Fields → ＋ New field →
+  type _Iteration_**. Name the iterations `M0…`, `M1…`, `M2…`, `M3…`, then
+  **re-run the script** — it detects the Iteration field and assigns each issue
+  to its matching iteration automatically.
