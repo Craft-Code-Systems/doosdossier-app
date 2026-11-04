@@ -10,6 +10,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `golden-harness/`: SchemeAdapter-contract, pytest-poortwachter,
   voorbeeldcase (groen) en todo-skeletten voor Verpact en LUCID.
 - `docs/schemes/`: onderzoekswerkbladen Verpact en LUCID (O-01/O-02).
+- `scripts/overview.py` + workflow *Overview*: gegenereerd projectoverzicht
+  (status uit de brief, Decisions, Changelog, doc-versheid) op GitHub Pages,
+  overgenomen uit de referentiegenerator van Colophon.
 
 ## [0.2.0] — 2026-07-13
 

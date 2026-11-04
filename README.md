@@ -125,6 +125,7 @@ of your declarations.
 - [Research log](./docs/research-log.md) — exploration notes
 - [Spec](./docs/spec.md) — detailed requirements
 - [Changelog](./CHANGELOG.md)
+- [Overview](https://craft-code-systems.github.io/doosdossier-app/) — generated from the brief, Decisions and Changelog
 - [License](./LICENSE) — AGPL-3.0
 
 ---
